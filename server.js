@@ -3,18 +3,7 @@ var fs      = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
 var app     = express();
-
-// DEV ///////////////////////////////////////////
-// var mongo = require('mongodb');
-// var MongoClient = require('mongodb').MongoClient;
-// var url = "mongodb://localhost:27017/mydb";
-
-// MongoClient.connect(url, function(err, db) {
-//   if (err) throw err;
-//   console.log("Database created!");
-//   db.close();
-// });
-
+var prettyjson = require('prettyjson');
 
 app.get('/scrape', function(req, res){
 
@@ -24,7 +13,12 @@ app.get('/scrape', function(req, res){
     if(!error){
       var $ = cheerio.load(body);
     }
+    
+    var options = {
+      noColor: false
+    };
 
+    var formatBody = prettyjson.render(body, options);
     fs.writeFile('output.json', body , function(err){
       console.log('File successfully written! - Check your project directory for the output.json file');
     })
