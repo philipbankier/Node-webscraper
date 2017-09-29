@@ -4,6 +4,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var app     = express();
 var prettyjson = require('prettyjson');
+var port = process.env.PORT || 5000;
 
 app.get('/scrape', function(req, res){
 
@@ -27,7 +28,8 @@ app.get('/scrape', function(req, res){
   })
 })
 
-app.listen('8081')
-console.log('Magic happening on port 8081');
+// start the server
+app.listen(port);
+console.log('Server started! At http://localhost:' + port);
 exports = module.exports = app;
 
